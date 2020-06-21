@@ -1,0 +1,247 @@
+//---------------------------------------------------------------------------
+// File name:   Bank.cpp
+// Assign ID:    
+// Due Date:    06/21/20 
+//
+// Purpose:     create a unique and password protected bank account program
+//
+// Author:      MJOHNSON88 Michael Johnson
+//---------------------------------------------------------------------------
+
+#include <iostream>
+#include <cstdlib>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    //------------------------------------------------------------------------
+    //  Declare variables, ONE PER LINE, format:
+    //
+    //       data_type variable_name;  // intended use of variable.
+    //------------------------------------------------------------------------
+    string username, password, account, realUser="rbrown", realPassword="blue123";
+    int deposit, dollarBill, fiveBill, tenBill, dub, fiftyBill, benji, status=0;
+    int choice=0, count, price, totalCount=0, checkingB = 35, savingsB = 2500;
+    int withdraw, totalwithdraw;
+    
+
+    //-|----------------------------------------------------------------------
+    //-| Display the copyright notice declaring authorship.
+    //-|----------------------------------------------------------------------
+    cout << endl << "(c) 2018, MJOHNSON88 Michael Johnson" << endl << endl; 
+    
+    
+    //-|----------------------------------------------------------------------
+    //-| 1. Username/Password input and verification
+    //-|----------------------------------------------------------------------
+   
+    cout<<"Input username"<<endl; // username input
+    cin>>username;
+    cout<<"Input password"<<endl; // password input
+    cin>>password;
+    
+
+        if ((username == realUser) && (password == realPassword))
+        {                
+            cout<<"Hello Mr. Brown \nWhat transaction do you want to do?"<< endl;        
+        }
+        else
+            cout<<"Please enter correct username and/or password"<<endl;
+ 
+    //-|----------------------------------------------------------------------
+    //-| 2. deposit
+    //-|----------------------------------------------------------------------
+  
+    
+      while (choice<3) // while loop for account menu 
+        {  
+          cout<<"Checking balance: $"<<checkingB<<"\t Savings balance: $"<< savingsB<<endl;
+          cout<<"1- deposit \t 2- withdraw \t 3- logout"<<endl;
+          cin>> choice;    
+          
+             switch(choice) // menu for account options
+            {  
+                case 1: // deposit option
+             { 
+                cout<<"Choose account for deposit"<<endl;
+                cin>>account;
+                cout<<"How much are you depositting?"<<endl;
+                cin>>price;
+                 
+                 // if statement making sure the proper inputs were entered
+                   if ((account == "c") || (account=="checking") || (account == "s") || (account == "savings"))
+             {
+                            // menu for deposit  
+                 cout<< "Menu for deposits:"<< endl;
+                 cout<< "'1' - $1 bill"<< endl;
+                 cout<< "'5' - $5 bill"<< endl;
+                 cout<< "'10'- $10 bill"<< endl;
+                 cout<< "'20'- $20 bill"<< endl;
+                 cout<< "'50'- $50 bill"<< endl;
+                 cout<< "'100'- $100 bill"<< endl;
+    
+      
+      do // do while loop for deposit
+      {             
+      cout<<"Money needed for deposit $"<< price-totalCount<<endl;  
+      cout<<"Input deposit money"<<endl;
+      cin >> deposit;
+        
+         if (deposit == 1)
+        {
+          count = 1;
+          totalCount = count + totalCount;
+          dollarBill++;
+          cout<<"The total amount now is $"<<totalCount<<endl;
+        }    
+        else if (deposit == 5)
+        {
+          count = 5;
+          totalCount = count + totalCount;
+          fiveBill++;
+          cout<<"The amount now is $"<<totalCount<<endl;    
+        }    
+        else if (deposit == 10)
+        {
+           count = 10;
+          totalCount = count + totalCount;
+          tenBill++;
+          cout<<"The amount now is $"<<totalCount<<endl;    
+        }   
+        else if (deposit == 20)
+        {
+           count = 20;
+          totalCount = count + totalCount;
+          dub++;
+          cout<<"The amount now is $"<<totalCount<<endl;    
+        }    
+        else if (deposit == 50)
+        {   count = 50;
+          totalCount = count + totalCount;
+          fiftyBill++;
+          cout<<"The amount now is $"<<totalCount<<endl;    
+        }
+         else if (deposit == 100)
+        {   count = 100;
+          totalCount = count + totalCount;
+          benji++;
+          cout<<"The amount now is $"<<totalCount<<endl;    
+        }
+      }  
+      while ((totalCount<price) && (deposit!='c')); // while loop running conditions  
+            
+                // if else loop to update balances
+            if ((account == "c") || (account == "checking"))
+            {
+                checkingB +=totalCount;
+                cout<<"The new balance is $"<<checkingB<<endl;
+            }   
+            else if ((account == "s") || (account == "savings"))     
+            {
+                savingsB +=totalCount;
+                cout<<"The new balance is $"<<savingsB<<endl;
+            }
+             }
+             else 
+                 cout<<"Please choose an applicable acount"<<endl;
+                
+                } break;
+     
+ //-|----------------------------------------------------------------------
+ //-| 3. withdraw
+ //-|----------------------------------------------------------------------
+    
+            case 2: // withdraw option
+         
+                totalwithdraw=0;
+                cout<<"Choose account for withdrawal"<<endl;
+                cin>>account;
+                cout<<"How much you want to withdraw?"<<endl;
+                cin>>withdraw;
+         
+      if ((account == "c") || (account == "checking"))
+      
+             if (withdraw>checkingB)
+             {cout<<"Not enough money \nTry again or log out"<<endl; 
+                 break;  
+             }
+      else if  ((account == "s") || (account == "savings"))
+      
+          if (withdraw>savingsB)
+          {cout<<"Not enough money \nTry again or log out"<<endl;   
+              break;
+          }
+      
+             
+                price = withdraw;
+        do {   
+          cout<<"Money for withdraw $"<< withdraw << endl;  
+            
+             if (withdraw >= 100)
+            {   
+              count = 100;
+              totalwithdraw = count + totalwithdraw;
+              cout<<"Amount withdrawn $"<< totalwithdraw <<endl;    
+            }
+            else if (withdraw >= 50)
+            {  
+              count = 50;
+              totalCount = count + totalCount;
+              cout<<"Amount withdrawn $"<< totalwithdraw <<endl;     
+            }   
+            else if (withdraw >= 10)
+            {
+              count = 10;
+              totalCount = count + totalCount;
+              cout<<"Amount withdrawn $"<< totalwithdraw <<endl;     
+            }   
+            else if (withdraw >= 20)
+            {
+              count = 20;
+              totalCount = count + totalCount;
+              cout<<"Amount withdrawn $"<< totalwithdraw <<endl;     
+            }    
+            else if (withdraw >= 5)
+            {
+              count = 5;
+              totalCount = count + totalCount;
+              cout<<"Amount withdrawn $"<< totalwithdraw <<endl;     
+            }    
+             else if (withdraw >= 1)
+            {
+              count = 1;
+              totalwithdraw = count + totalwithdraw;
+              cout<<"Amount withdrawn $"<< totalwithdraw <<endl; 
+            }    
+          }  
+      while (totalwithdraw<price);
+      
+         if ((account == "c") || (account == "checking"))
+            {
+                checkingB -=totalwithdraw;
+                cout<<"The new balance is $"<<checkingB<<endl;
+            }   
+            else if ((account == "s") || (account == "savings"))     
+            {
+                savingsB -=totalwithdraw;
+                cout<<"The new balance is $"<<savingsB<<endl;
+            }
+                 break;  
+
+     default: // logout option
+            cout<<"Logging out of account"<<endl;
+        } // end of switch
+    }
+        
+        
+    
+    //-|----------------------------------------------------------------------
+    //-| Display the copyright notice declaring authorship again.
+    //-|----------------------------------------------------------------------
+    cout << endl << endl << "(c) 2018, MJOHNSON88 Michael Johnson" << endl; 
+
+
+   return 0;
+
+}
