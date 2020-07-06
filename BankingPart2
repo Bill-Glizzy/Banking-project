@@ -1,0 +1,383 @@
+//---------------------------------------------------------------------------
+// File name:   Bankp2.cpp
+// Assign ID:   MJOHNSON88
+// Due Date:    07/05/20 
+//
+// Purpose:     Create a unique and password protected bank account program
+//
+// Author:      Michael Johnson
+//---------------------------------------------------------------------------
+
+#include <iostream>
+#include <cstdlib>
+#include <cstring>
+using namespace std;
+
+
+//-|----------------------------------------------------------------------
+//-| Prototype functions
+//-|----------------------------------------------------------------------
+  int depositfunc(int acc, int deposit);
+  int withdrawfunc(int acc, int withdraw);
+  int credentials(string x, string y);
+
+int main()
+{
+    //------------------------------------------------------------------------
+    //       declare variable
+    //------------------------------------------------------------------------
+      
+    string username, password, account;
+    int deposit, Op, withdraw, amount, acc, newBalance;
+    int checkingB = 35, savingsB = 2500, state = 4;
+  
+    
+    //-|----------------------------------------------------------------------
+    //-| password algorithm
+    //-|----------------------------------------------------------------------
+  
+    do{
+        
+   /* cout<<"Input username"<<endl; // username input
+    cin>>username;
+    cout<<"Input password"<<endl; // password input
+    cin>>password;
+    
+    state = credentials( username, password);
+        
+    } while (state!=4);
+    
+    */
+    
+   
+   
+    //-|----------------------------------------------------------------------
+    //-| main menu algorithms
+    //-|----------------------------------------------------------------------
+  do {
+      
+      cout<< endl << "Operations menu"<< endl;
+                 cout<< "'1'- Deposit"<< endl;
+                 cout<< "'2'- Withdraw"<< endl;
+                 cout<< "'3'- Balance inquiry"<<endl;
+                 cout<< "'4'- Transfer Balance"<<endl;
+                 cout<< "'5'- Logout"<<endl<<endl;
+   
+   cout<<"Input operation"<<endl;
+   cin>>Op;
+   switch(Op) 
+   {
+       case 1: // deposit
+ 
+               cout<<"Checking or Savings?"<<endl;                
+                 cin>>account;
+               cout<<"What is the amount for this transaction?"<<endl;
+                 cin>>deposit;
+                 
+                          // menu for deposit  
+                 cout<< endl << "Menu for deposits:"<< endl;
+                 cout<< "'1' - $1 bill"<< endl;
+                 cout<< "'5' - $5 bill"<< endl;
+                 cout<< "'10'- $10 bill"<< endl;
+                 cout<< "'20'- $20 bill"<< endl;
+                 cout<< "'50'- $50 bill"<< endl;
+                 cout<< "'100'- $100 bill"<< endl;
+                 
+                 
+                 // if else loop to choose account
+            if ((account == "c") || (account == "checking"))            
+            { 
+                  acc = checkingB; 
+                  newBalance = depositfunc( acc, deposit);
+                  
+                  cout<< endl <<"Account balance $"<<acc<<endl;
+                  cout<<"+$"<<deposit<<endl;
+                  cout<<"$"<<newBalance<<endl;
+                  checkingB = newBalance;
+            
+            }
+            else if ((account == "s") || (account == "savings"))                 
+            {
+                  acc = savingsB; 
+                  newBalance = depositfunc( acc, deposit);
+                  cout<< endl <<"Account balance $"<<acc<<endl;
+                  cout<<"+$"<<deposit<<endl;
+                  cout<<"$"<<newBalance<<endl;
+                  savingsB = newBalance;
+            }
+ 
+          break;  
+               
+           
+           
+       case 2: // withdraw
+                  
+               cout<<"Checking or Savings?"<<endl;                
+                 cin>>account;
+               cout<<"What is the amount for this transaction?"<<endl;
+                 cin>>withdraw;
+                 
+                      // if else loop to choose account
+            if ((account == "c") || (account == "checking"))            
+            { 
+                  acc = checkingB; 
+                  newBalance =  withdrawfunc( acc, withdraw);
+                  cout<< endl <<"Account balance $"<<acc<<endl;
+                  cout<<"-$"<<withdraw<<endl;
+                  cout<<"$"<<newBalance<<endl;
+                  checkingB = newBalance; 
+                  
+            }
+            else if ((account == "s") || (account == "savings"))                 
+            {
+                  acc = savingsB; 
+                  newBalance =  withdrawfunc( acc, withdraw);
+                  cout<< endl <<"Account balance $"<<acc<<endl;
+                  cout<<"-$"<<withdraw<<endl;
+                  cout<<"$"<<newBalance<<endl;
+                  savingsB = newBalance;
+            }            
+                  
+          break;
+           
+           
+       case 3: // balance inquiry
+      
+           cout<<"Avaliable balance:"<<endl;
+           cout<<"Checking: \t $"<<checkingB<<endl;
+           cout<<"Savings: \t $"<<savingsB<<endl;
+       
+          break;
+       
+           
+           
+       case 4: // transfer balance 
+           int option;
+           
+           cout<<"Choose a transfer option:"<<endl;
+           cout<<"Option 1: Savings to Checking"<<endl;
+           cout<<"Option 2: Checking to Savings"<<endl;
+           cin>>option;
+           cout<<"How much are you transferring?"<<endl;
+           cin>> amount;
+           
+           if (option == 1)
+           {
+               savingsB-= amount;
+               checkingB+= amount;
+           }
+           else if (option == 2)
+           {
+               savingsB+= amount;
+               checkingB-= amount;
+           }
+           
+           cout<<endl<<"Avaliable balance:"<<endl;
+           cout<<"Checking: \t $"<<checkingB<<endl;
+           cout<<"Savings: \t $"<<savingsB<<endl;
+           
+          break; 
+           
+      case 5: // logout option
+           
+           cout<<"Logging out of account"<<endl;
+           state = 10;
+           break;
+               
+      default:
+           cout<<"Please reenter a valid command"<<endl;
+  
+   } // switch loop
+    
+  } while (state<8);
+    
+    
+cout<<"Goodbye"<<endl;
+    
+    //-|----------------------------------------------------------------------
+    //-| Display the copyright notice declaring authorship again.
+    //-|----------------------------------------------------------------------
+    cout << endl << endl << "(c) 2018, MJOHNSON88 Michael Johnson" << endl; 
+
+
+   return 0;
+
+}
+
+
+
+
+
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//-|----------------------------------------------------------------------
+//-| Function definition
+//-|----------------------------------------------------------------------
+  
+            ////  DEPOSIT FUNCTION  /////
+            
+int depositfunc(int account, int deposit){
+  
+          int totalCount=0, moneyin;         
+        
+  do // do while loop for deposit
+      {             
+      cout<<"Money needed to complete deposit $"<< deposit-totalCount<<endl;  
+      cout<<"Input deposit money"<<endl;
+      cin >> moneyin;
+        
+         if (moneyin == 1)
+        {
+          int count = 1;
+          totalCount = count + totalCount;
+          cout<<"Amount deposit $"<<totalCount<<endl; 
+        }    
+        else if (moneyin == 5)
+        {
+          int count = 5;
+          totalCount = count + totalCount;
+          cout<<"Amount deposit $"<<totalCount<<endl;     
+        }    
+        else if (moneyin == 10)
+        {
+          int count = 10;
+          totalCount = count + totalCount;
+          cout<<"Amount deposit $"<<totalCount<<endl;     
+        }   
+        else if (moneyin == 20)
+        {
+          int count = 20;
+          totalCount = count + totalCount;
+          cout<<"Amount deposit $"<<totalCount<<endl;     
+        }    
+        else if (moneyin == 50)
+        {  
+          int count = 50;
+          totalCount = count + totalCount;
+          cout<<"Amount deposit $"<<totalCount<<endl;     
+        }
+         else if (moneyin == 100)
+        {  
+          int count = 100;
+          totalCount = count + totalCount;
+          cout<<"Amount deposit $"<<totalCount<<endl;    
+        }
+      }  
+      while ((totalCount<deposit) && (moneyin!='c')); // while loop running conditions            
+  
+        account=account+deposit;
+        
+        return account;
+ }
+
+
+
+
+
+
+
+
+            ////  WITHDRAW FUNCTION  /////
+            
+int withdrawfunc(int account, int withdraw){
+  
+        int totalwithdraw=0, moneyin;
+        
+        cout<<"Money for withdraw $"<< withdraw << endl;
+        
+        if (account>withdraw){
+        
+        do {   
+            
+            
+             if (withdraw >= 100)
+            {   
+              int count = 100;
+              totalwithdraw = count + totalwithdraw;
+              cout<<"Dispensing $"<< count <<endl;    
+            }
+            else if (withdraw >= 50)
+            {  
+              int count = 50;
+              totalwithdraw = count + totalwithdraw;
+              cout<<"Dispensing $"<< count <<endl;      
+            }   
+            else if (withdraw >= 20)
+            {
+              int count = 20;
+              totalwithdraw = count + totalwithdraw;
+              cout<<"Dispensing $"<< count <<endl;     
+            }   
+            else if (withdraw >= 10)
+            {
+              int count = 10;
+              totalwithdraw = count + totalwithdraw;
+              cout<<"Dispensing $"<< count <<endl;      
+            }    
+            else if (withdraw >= 5)
+            {
+              int count = 5;
+              totalwithdraw = count + totalwithdraw;
+              cout<<"Dispensing $"<< count <<endl;      
+            }    
+             else if (withdraw >= 1)
+            {
+              int count = 1;
+              totalwithdraw = count + totalwithdraw;
+              cout<<"Dispensing $"<< count <<endl;  
+            }    
+          }  
+      while (totalwithdraw<withdraw);
+        
+        return account-withdraw;
+        }
+        else
+            cout<<"Not enough funds for transaction completion"<<endl;
+        return account;
+          
+ }
+  
+
+
+
+            ////  PASSWORD FUNCTION  /////
+int credentials(string x, string y)
+{
+    string realUser="rbrown", realPassword="blue123";
+    int state, attempt = 0, correct=0;
+    
+    
+    do {
+        
+    if ((x == realUser) && (y == realPassword))
+        {     
+            correct++;
+            cout<<"Welcome "<< realUser << endl;
+            state = 4;            
+        }
+        else
+        {
+            attempt++;
+            cout<<"Please enter correct username and/or password"<<endl; 
+            state=1;
+        }
+    }while((attempt<3) || (correct==1));
+    
+    return state;
+    } 
+     
+
